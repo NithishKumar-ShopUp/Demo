@@ -1,0 +1,22 @@
+name: ProductionAuthMigration
+
+on:
+  release:
+    types: [published]
+
+env:
+  AUTH_MIGRATION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API }}
+  AUTHORIZATION_HEADER: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN }}
+
+jobs:
+  adding-auth-data-in-identity-service:
+    name: Adding Auth Data in Identity Service
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: curl
+        uses: wei/curl@v1
+        with:
+          args: -X POST '${{ env.AUTH_MIGRATION_API }}' --header '${{ env.AUTHORIZATION_HEADER }}' --form 'json_file=@migrations.json'
