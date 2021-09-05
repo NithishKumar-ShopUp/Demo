@@ -1,0 +1,25 @@
+name: StagingAuthMigration
+
+on:
+  pull_request:
+    branches: [master]
+    types: [labeled]
+
+env:
+  AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
+  AUTHORIZATION_TOKEN: ${{ secrets.STAGING_DIRTY_HACK_TOKEN }}
+
+jobs:
+  adding-auth-data-in-identity-service:
+    name: Adding Auth Data in Identity Service
+    runs-on: ubuntu-20.04
+    if: github.event.label.name == 'Ok to deploy in staging'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: curl
+        uses: wei/curl@v1
+        with:
+          args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
+          # args: -X POST '${{ env.AUTH_MIGRATION_API }}' --header 'Authorization: ${{ env.AUTHORIZATION_TOKEN }}' --form 'json_file=@migrations.json'
