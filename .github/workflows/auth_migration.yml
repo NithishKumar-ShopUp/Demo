@@ -27,7 +27,7 @@ jobs:
         with:
           # Production Deployment
           if: github.event_name == 'release'
-          args: --location --request POST '${{ env.PRODUCTION_API }}' --header 'Authorization: ${{ env.PRODUCTION_TOKEN }}' --form 'json_file=@"migrations.json"'
+          args: -X POST '${{ env.PRODUCTION_API }}' --header 'Authorization: ${{ env.PRODUCTION_TOKEN }}' --form 'json_file=@"migrations.json"'
 
           if: github.event_name == 'pull_request'
-          args: --location --request POST '${{ env.STAGING_API }}' --header 'Authorization: ${{ env.STAGING_TOKEN }}' --form 'json_file=@"migrations.json"'
+          args: -X POST '${{ env.STAGING_API }}' --header 'Authorization: ${{ env.STAGING_TOKEN }}' --form 'json_file=@"migrations.json"'
