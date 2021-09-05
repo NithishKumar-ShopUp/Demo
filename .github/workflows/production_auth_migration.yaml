@@ -19,4 +19,5 @@ jobs:
       - name: curl
         uses: wei/curl@v1
         with:
-          args: -X POST '${{ env.AUTH_MIGRATION_API }}' --form 'json_file=@migrations.json'
+          args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
+          # args: -X POST '${{ env.AUTH_MIGRATION_API }}' --header 'Authorization: ${{ env.AUTHORIZATION_TOKEN }}' --form 'json_file=@migrations.json'
