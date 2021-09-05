@@ -8,10 +8,10 @@ on:
     types: [published]
 
 env:
-  PRODUCTION_AUTH_MIGRATION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API }}
-  PRODUCTION_DIRTY_HACK_TOKEN: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN }}
-  STAGING_AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
-  STAGING_AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
+  PRODUCTION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API }}
+  PRODUCTION_TOKEN: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN }}
+  STAGING_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
+  STAGING_TOKEN: ${{ secrets.STAGING_DIRTY_HACK_TOKEN }}
 
 jobs:
   adding-auth-data-in-identity-service:
@@ -26,12 +26,8 @@ jobs:
         uses: wei/curl@v1
         with:
           # Production Deployment
-          if: ${{ github.event_name == 'release' }}
-          args: --location --request POST '${{PRODUCTION_AUTH_MIGRATION_API}}' \
-          --header 'Authorization: ${{ PRODUCTION_DIRTY_HACK_TOKEN }}' \
-          --form 'json_file=@"migrations.json"'
+          if: github.event_name == 'release'
+          args: --location --request POST '${{ env.PRODUCTION_API }}' --header 'Authorization: ${{ env.PRODUCTION_TOKEN }}' --form 'json_file=@"migrations.json"'
 
-          if: ${{ github.event_name == 'pull_request' }}
-          args: --location --request POST '${{STAGING_AUTH_MIGRATION_API}}' \
-          --header 'Authorization: ${{ STAGING_AUTH_MIGRATION_API }}' \
-          --form 'json_file=@"migrations.json"'
+          if: github.event_name == 'pull_request'
+          args: --location --request POST '${{ env.STAGING_API }}' --header 'Authorization: ${{ env.STAGING_TOKEN }}' --form 'json_file=@"migrations.json"'
