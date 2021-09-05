@@ -32,7 +32,6 @@ jobs:
           args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
 
 
-
           # if: github.event_name == 'release'
           # args: -X POST '${{ env.PRODUCTION_API }}' --header 'Authorization: ${{ env.PRODUCTION_TOKEN }}' --form 'json_file=@"migrations.json"'
 
