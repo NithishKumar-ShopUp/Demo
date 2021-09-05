@@ -31,7 +31,6 @@ jobs:
           --header 'Authorization: ${{ PRODUCTION_DIRTY_HACK_TOKEN }}' \
           --form 'json_file=@"migrations.json"'
 
-          # Staging Deployment
           if: ${{ github.event_name == 'pull_request' }}
           args: --location --request POST '${{STAGING_AUTH_MIGRATION_API}}' \
           --header 'Authorization: ${{ STAGING_AUTH_MIGRATION_API }}' \
