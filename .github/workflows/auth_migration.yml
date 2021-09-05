@@ -24,15 +24,15 @@ jobs:
 
       - name: curl
         uses: wei/curl@v1
-        # Production Deployment
-        if: ${{ github.event_name == 'release' }}
         with:
+          # Production Deployment
+          if: ${{ github.event_name == 'release' }}
           args: --location --request POST '${{PRODUCTION_AUTH_MIGRATION_API}}' \
           --header 'Authorization: ${{ PRODUCTION_DIRTY_HACK_TOKEN }}' \
           --form 'json_file=@"migrations.json"'
-        # Staging Deployment
-        if: ${{ github.event_name == 'pull_request' }}
-        with:
+
+          # Staging Deployment
+          if: ${{ github.event_name == 'pull_request' }}
           args: --location --request POST '${{STAGING_AUTH_MIGRATION_API}}' \
           --header 'Authorization: ${{ STAGING_AUTH_MIGRATION_API }}' \
           --form 'json_file=@"migrations.json"'
