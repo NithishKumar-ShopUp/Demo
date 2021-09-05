@@ -22,12 +22,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: curl
+      - if: github.event_name == 'release'
+        name: curl
         uses: wei/curl@v1
-        if: github.event_name == 'release'
         with:
           args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
-        if: github.event_name == 'pull_request'
+
+      - if: github.event_name == 'pull_request'
+        name: curl
+        uses: wei/curl@v1
         with:
           args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
 
