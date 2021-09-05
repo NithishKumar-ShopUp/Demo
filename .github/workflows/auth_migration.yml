@@ -1,0 +1,38 @@
+name: AuthMigration
+
+on:
+  pull_request:
+    branches: [master]
+    types: [labeled]
+  release:
+    types: [published]
+
+env:
+  PRODUCTION_AUTH_MIGRATION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API }}
+  PRODUCTION_DIRTY_HACK_TOKEN: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN }}
+  STAGING_AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
+  STAGING_AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
+
+jobs:
+  adding-auth-data-in-identity-service:
+    name: Adding Auth Data in Identity Service
+    runs-on: ubuntu-20.04
+    if: ${{ github.event_name == 'release' || github.event.label.name == 'Ok to deploy in staging'}}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: curl
+        uses: wei/curl@v1
+        # Production Deployment
+        if: ${{ github.event_name == 'release' }}
+        with:
+          args: --location --request POST '${{PRODUCTION_AUTH_MIGRATION_API}}' \
+          --header 'Authorization: ${{ PRODUCTION_DIRTY_HACK_TOKEN }}'
+          --form 'json_file=@"migrations.json"'
+        # Staging Deployment
+        if: ${{ github.event_name == 'pull_request' }}
+        with:
+          args: --location --request POST '${{STAGING_AUTH_MIGRATION_API}}' \
+          --header 'Authorization: ${{ STAGING_AUTH_MIGRATION_API }}'
+          --form 'json_file=@"migrations.json"'
