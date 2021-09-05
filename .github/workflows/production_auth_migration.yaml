@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: curl for Product
+      - name: curl
         uses: wei/curl@v1
         with:
           args: -X POST '${{ env.AUTH_MIGRATION_API }}' --header 'Authorization: ${{ env.AUTHORIZATION_TOKEN }}' --form 'json_file=@migrations.json'
