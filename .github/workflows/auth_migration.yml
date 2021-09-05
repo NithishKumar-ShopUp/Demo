@@ -24,11 +24,11 @@ jobs:
 
       - name: curl
         uses: wei/curl@v1
+        if: github.event_name == 'release'
         with:
-          if: github.event_name == 'release'
           args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
-
-          if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request'
+        with:
           args: --location --request GET 'https://ucapi.vnksrvc.com/users/find_zone.json?location=23.750074,90.375948'
 
 
