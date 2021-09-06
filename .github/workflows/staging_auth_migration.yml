@@ -9,7 +9,7 @@ env:
   AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
   AUTHORIZATION_HEADER: ${{ secrets.STAGING_DIRTY_HACK_TOKEN }}
   FILE_NAME: ${{ secrets.AUTH_MIGRATIONS_FILE_PATH }}
-  
+
 jobs:
   adding-auth-data-in-identity-service:
     name: Adding Auth Data in Identity Service
@@ -18,9 +18,11 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      
       - name: File Exists?
         run: |
           (ls ${{ env.FILE_NAME }} && echo "File Exists") || (echo "File Does not Exists. Creating an Empty file" && echo "{}" > ${{ env.FILE_NAME }})
+      
       - name: curl
         uses: wei/curl@v1
         with:
