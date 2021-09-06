@@ -19,7 +19,6 @@ jobs:
         uses: actions/checkout@v2
       - name: File Exists?
         run: |
-          set -euxo pipefail
           ls ${{ env.FILE_NAME }} && echo "File Exists"
       - name: curl
         uses: wei/curl@v1
