@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: File Exists?
-        run: echo $(ls ${{ FILE_NAME }} && echo "File Exists")
+        run: echo $(ls ${{ env.FILE_NAME }} && echo "File Exists")
       - name: curl
         uses: wei/curl@v1
         with:
