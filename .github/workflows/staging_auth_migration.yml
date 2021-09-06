@@ -20,7 +20,7 @@ jobs:
       - name: File Exists?
         run: |
           set -euxo pipefail
-          echo $(ls ${{ env.FILE_NAME }} && echo "File Exists")
+          ls ${{ env.FILE_NAME }} && echo "File Exists"
       - name: curl
         uses: wei/curl@v1
         with:
