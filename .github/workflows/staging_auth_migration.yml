@@ -19,7 +19,7 @@ jobs:
         uses: actions/checkout@v2
       - name: File Exists?
         run: |
-          ls ${{ env.FILE_NAME }} && echo "File Exists" || echo "File Does not Exists" && echo "{}" > ${{ env.FILE_NAME }}
+          ls ${{ env.FILE_NAME }} && echo "File Exists" || echo "File Does not Exists. Creating an Empty file" && echo "{}" > ${{ env.FILE_NAME }}
       - name: curl
         uses: wei/curl@v1
         with:
