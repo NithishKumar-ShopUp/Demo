@@ -9,6 +9,7 @@ env:
   AUTH_MIGRATION_API: ${{ secrets.STAGING_AUTH_MIGRATION_API }}
   AUTHORIZATION_HEADER: ${{ secrets.STAGING_DIRTY_HACK_TOKEN }}
   FILE_NAME: ${{ secrets.AUTH_MIGRATIONS_FILE_PATH }}
+  
 jobs:
   adding-auth-data-in-identity-service:
     name: Adding Auth Data in Identity Service
