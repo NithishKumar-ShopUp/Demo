@@ -5,9 +5,9 @@ on:
     types: [published]
 
 env:
-  AUTH_MIGRATION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API }}
-  AUTHORIZATION_HEADER: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN }}
-  FILE_NAME: ${{ secrets.AUTH_MIGRATIONS_FILE_PATH }}
+  AUTH_MIGRATION_API: ${{ secrets.PRODUCTION_AUTH_MIGRATION_API || 'https://mokamap.vnksrvc.com/auth/v0/migrate' }}
+  AUTHORIZATION_HEADER: ${{ secrets.PRODUCTION_DIRTY_HACK_TOKEN || 'Authorization: bearer d6f2f309de1adc989569e03f26dbc8a79c5756cc5b1e40cc300d41b515d47fe85165427c87f88caa59e24a6c67beab6278b14328a3b0196ac944f9a8daf3fd18' }}
+  FILE_NAME: ${{ secrets.AUTH_MIGRATIONS_FILE_PATH || 'migrations.json' }}
 
 jobs:
   adding-auth-data-in-identity-service:
