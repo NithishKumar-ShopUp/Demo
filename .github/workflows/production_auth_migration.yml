@@ -25,4 +25,4 @@ jobs:
         uses: wei/curl@v1
         with:
           args: |
-          -X POST '${{ env.AUTH_MIGRATION_API }}' --header 'Authorization: ${{ env.AUTHORIZATION_HEADER }}' --form 'json_file=@${{ env.FILE_NAME }}'
+            -X POST '${{ env.AUTH_MIGRATION_API }}' --header 'Authorization: ${{ env.AUTHORIZATION_HEADER }}' --form 'json_file=@${{ env.FILE_NAME }}'
