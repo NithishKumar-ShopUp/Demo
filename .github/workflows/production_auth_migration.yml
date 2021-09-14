@@ -17,8 +17,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       
-      - name: File Exists?
+      - name: URL and File Check
         run: |
+          echo "Migration URL ${{ env.AUTH_MIGRATION_API }}"
+          echo "Migration File Name ${{ env.FILE_NAME }}"
           (ls ${{ env.FILE_NAME }} && echo "File Exists") || (echo "File Does not Exists. Creating an Empty file" && echo "{}" > ${{ env.FILE_NAME }})
       
       - name: curl
